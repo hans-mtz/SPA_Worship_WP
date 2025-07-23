@@ -155,7 +155,7 @@
             <input type="text" id="ref1_nombre" name="ref1_nombre" required>
 
             <label for="ref1_telefono">Teléfono *</label>
-            <input type="text" id="ref1_telefono" name="ref1_telefono" required>
+            <input type="tel" id="ref1_telefono" name="ref1_telefono" required>
 
             <label for="ref1_email">Correo electrónico *</label>
             <input type="email" id="ref1_email" name="ref1_email" required>
@@ -167,7 +167,7 @@
             <input type="text" id="ref2_nombre" name="ref2_nombre" required>
 
             <label for="ref2_telefono">Teléfono *</label>
-            <input type="text" id="ref2_telefono" name="ref2_telefono" required>
+            <input type="tel" id="ref2_telefono" name="ref2_telefono" required>
 
             <label for="ref2_email">Correo electrónico *</label>
             <input type="email" id="ref2_email" name="ref2_email" required>
@@ -183,7 +183,7 @@
                 body: new FormData(this)
             }).then(response => {
             if (response.ok) {
-                document.body.innerHTML = "<h2>¡Gracias por enviar tu aplicación!</h2><p>Nos pondremos en contacto contigo pronto.</p><p>Tambien puedes escribirnos a <a href="mailto:spanishworship@westparkchurch.ca">spanishworship@westparkchurch.ca</a></p>";
+                document.body.innerHTML = "<h2>¡Gracias por enviar tu aplicación!</h2><p>Nos pondremos en contacto contigo pronto. Tambien puedes escribirnos a <a href="mailto:spanishworship@westparkchurch.ca">spanishworship@westparkchurch.ca</a></p>";
             } else {
                 alert("Hubo un error al enviar el formulario. Intenta nuevamente.");
             }
