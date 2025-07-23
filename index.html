@@ -5,10 +5,62 @@
     <meta charset="UTF-8">
     <title>Formulario de Aplicación para el Equipo de Alabanza</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
+        /* body { font-family: Arial, sans-serif; margin: 20px; }
         label { display: block; margin-top: 10px; font-weight: bold; }
         input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; }
-        .section { margin-bottom: 20px; }
+        .section { margin-bottom: 20px; } */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select, 
+        date, 
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .checkbox-group, .radio-group {
+            margin-top: 5px;
+        }
+        .checkbox-group label,
+        .radio-group label {
+            font-weight: normal;
+            display: block;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0078D4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
     </style>
 </head>
 <body>
@@ -25,7 +77,7 @@
             <input type="email" id="email" name="email" required>
 
             <label for="telefono">Número de teléfono *</label>
-            <input type="text" id="telefono" name="telefono" required>
+            <input type="tel" id="tel" name="telefono" required>
 
             <label for="tipo_telefono">Tipo de teléfono</label>
             <select id="tipo_telefono" name="tipo_telefono">
@@ -75,12 +127,13 @@
             </select>
 
             <label>Puedo... (Marca todo lo que aplique)</label>
-            <input type="checkbox" name="habilidades" value="Leer_cifrados"> Leer cifrados (chord charts)<br>
-            <input type="checkbox" name="habilidades" value="Leer_partituras"> Leer partituras<br>
-            <input type="checkbox" name="habilidades" value="Improvisar"> Improvisar en mi instrumento<br>
-
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="habilidades" value="Leer_cifrados"> Leer cifrados (chord charts)</label>
+                <label><input type="checkbox" name="habilidades" value="Leer_partituras"> Leer partituras</label>
+                <label><input type="checkbox" name="habilidades" value="Improvisar"> Improvisar en mi instrumento</label>
+            </div>
             <label for="aprendizaje">Aprendo música por: *</label>
-            <select id="identidad" name="identidad" required>
+            <select id="aprendizaje" name="aprendizaje" required>
                 <option value="Leyendo">Leyendo (Partituras, Cifrados o Chord Charts)</option>
                 <option value="Escuchando">Escuchando (de Oído)</option>
                 <option value="Ambas">Ambas</option>
