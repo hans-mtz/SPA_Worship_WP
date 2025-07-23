@@ -183,7 +183,7 @@
                 body: new FormData(this)
             }).then(response => {
             if (response.ok) {
-                document.body.innerHTML = "<h2>¡Gracias por enviar tu aplicación!</h2><p>Nos pondremos en contacto contigo pronto.</p>";
+                document.body.innerHTML = "<h2>¡Gracias por enviar tu aplicación!</h2><p>Nos pondremos en contacto contigo pronto.</p><p>Tambien puedes escribirnos a <a href="mailto:spanishworship@westparkchurch.ca">spanishworship@westparkchurch.ca</a></p>";
             } else {
                 alert("Hubo un error al enviar el formulario. Intenta nuevamente.");
             }
