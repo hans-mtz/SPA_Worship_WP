@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Worship Team Sign-Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .checkbox-group, .radio-group {
+            margin-top: 5px;
+        }
+        .checkbox-group label,
+        .radio-group label {
+            font-weight: normal;
+            display: block;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0078D4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+    </style>
+</head>
+<body>
+    <h2>Worship Team Sign-Up – West Park Church Spanish Worship</h2>
+    <form action="https://script.google.com/macros/s/AKfycbzIEL-h3wX9V4qvJ8jtRT2posY4AD3mLz6Cj58clRUzeUWaIhpKmrA8sOPMu6Upz7Vf/exec" method="POST">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone">
+
+        <label>Availability for Rehearsals:</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="availability" value="Monday"> Monday</label>
+            <label><input type="checkbox" name="availability" value="Tuesday"> Tuesday</label>
+            <label><input type="checkbox" name="availability" value="Wednesday"> Wednesday</label>
+            <label><input type="checkbox" name="availability" value="Thursday"> Thursday</label>
+            <label><input type="checkbox" name="availability" value="Friday"> Friday</label>
+            <label><input type="checkbox" name="availability" value="Saturday"> Saturday</label>
+        </div>
+
+        <label>Available for Sunday Services:</label>
+        <div class="radio-group">
+            <label><input type="radio" name="sunday" value="Yes"> Yes</label>
+            <label><input type="radio" name="sunday" value="No"> No</label>
+        </div>
+
+        <label>Role Interest:</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="role" value="Vocalist"> Vocalist</label>
+            <label><input type="checkbox" name="role" value="Instrumentalist"> Instrumentalist</label>
+            <label><input type="checkbox" name="role" value="Sound/Tech"> Sound/Tech</label>
+            <label><input type="checkbox" name="role" value="Other"> Other</label>
+        </div>
+
+        <label for="instrument">If instrumentalist, what instrument(s) do you play?</label>
+        <input type="text" id="instrument" name="instrument">
+
+        <label>Do you have previous worship team experience?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="experience" value="Yes"> Yes</label>
+            <label><input type="radio" name="experience" value="No"> No</label>
+        </div>
+
+        <label for="experience_details">If yes, please describe briefly:</label>
+        <textarea id="experience_details" name="experience_details" rows="4"></textarea>
+
+        <label for="comments">Anything else you'd like us to know?</label>
+        <textarea id="comments" name="comments" rows="4"></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
