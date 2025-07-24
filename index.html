@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Formulario de Aplicación para el Equipo de Alabanza</title>
+    <title>Formulario de Aplicación para el Equipo de Alabanza de West Park Church</title>
     <style>
         /* body { font-family: Arial, sans-serif; margin: 20px; }
         label { display: block; margin-top: 10px; font-weight: bold; }
@@ -32,8 +32,8 @@
         input[type="text"],
         input[type="email"],
         input[type="tel"],
+        /* input[type="date"], */
         select, 
-        date, 
         textarea {
             width: 100%;
             padding: 8px;
@@ -77,7 +77,7 @@
             <input type="email" id="email" name="email" required>
 
             <label for="telefono">Número de teléfono *</label>
-            <input type="tel" id="tel" name="telefono" required>
+            <input type="tel" id="telefono" name="telefono" required>
 
             <label for="tipo_telefono">Tipo de teléfono</label>
             <select id="tipo_telefono" name="tipo_telefono">
@@ -183,7 +183,13 @@
                 body: new FormData(this)
             }).then(response => {
             if (response.ok) {
-                document.body.innerHTML = "<h2>¡Gracias por enviar tu aplicación!</h2><p>Nos pondremos en contacto contigo pronto. Tambien puedes escribirnos a <a href="mailto:spanishworship@westparkchurch.ca">spanishworship@westparkchurch.ca</a></p>";
+                document.body.innerHTML = `
+                    <h2>¡Gracias por enviar tu aplicación!</h2>
+                    <p>Nos pondremos en contacto contigo pronto. 
+                    También puedes escribirnos a 
+                    <a href="mailto:spanishworship@westparkchurch.ca">
+                        spanishworship@westparkchurch.ca
+                    </a></p>`;
             } else {
                 alert("Hubo un error al enviar el formulario. Intenta nuevamente.");
             }
