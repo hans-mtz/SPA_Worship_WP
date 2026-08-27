@@ -2,248 +2,701 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Formulario de Aplicación para Ministerios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f9f9f9;
+    :root{
+      --stage-bg:#161D27;
+      --stage-bg-2:#1F2A38;
+      --stage-ink:#EDF2F7;
+      --stage-ink-dim:#AEBBCB;
+      --paper:#F8FAFC;
+      --paper-2:#EEF2F6;
+      --paper-ink:#1B2430;
+      --paper-ink-dim:#5B6B7D;
+      --hairline:rgba(27,36,48,0.13);
+      --hairline-dark:rgba(237,242,247,0.16);
+      --brand-red:#EA492E;
+      --brand-red-soft:rgba(234,73,46,0.14);
+      --brand-blue:#3E6A8F;
+      --brand-blue-soft:rgba(150,189,219,0.22);
+      --accent: var(--brand-blue);
+      --accent-soft: var(--brand-blue-soft);
+      --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     }
-    h2 {
-      color: #333;
+
+    *{ box-sizing:border-box; }
+    html{ -webkit-text-size-adjust:100%; }
+    body{
+      margin:0;
+      background:var(--paper);
+      color:var(--paper-ink);
+      font-family:var(--font-body);
+      line-height:1.5;
     }
-    form {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 600px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    h1,h2{ text-wrap:balance; margin:0; }
+    a{ color:inherit; }
+
+    /* ---------- Stage ---------- */
+    .stage{
+      background:
+        radial-gradient(ellipse 120% 90% at 50% -10%, var(--stage-bg-2), var(--stage-bg) 70%);
+      color:var(--stage-ink);
+      padding:3.2rem 1.5rem 2.6rem;
     }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
+    .stage__inner{
+      max-width:640px;
+      margin:0 auto;
+      animation: rise .6s ease-out both;
     }
+    @keyframes rise{
+      from{ opacity:0; transform:translateY(10px); }
+      to{ opacity:1; transform:none; }
+    }
+    .eyebrow{
+      font-family:var(--font-mono);
+      font-size:.75rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--stage-ink-dim);
+      margin:0 0 .9rem;
+    }
+    .stage__title{
+      font-family:var(--font-display);
+      font-weight:800;
+      font-size:clamp(1.9rem, 5.2vw, 2.9rem);
+      line-height:1.08;
+      letter-spacing:-0.01em;
+    }
+    .stage__copy{
+      margin:1.1rem 0 0;
+      max-width:56ch;
+      color:var(--stage-ink-dim);
+      font-size:1rem;
+    }
+
+    fieldset.switcher{
+      border:0;
+      margin:1.9rem 0 0;
+      padding:0;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:.85rem;
+    }
+    .switcher__legend{
+      grid-column:1 / -1;
+      font-family:var(--font-mono);
+      font-size:.72rem;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--stage-ink-dim);
+      padding:0 0 .6rem;
+    }
+    .footswitch{
+      --sw-color: var(--brand-red);
+      --sw-soft: var(--brand-red-soft);
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+      min-height:60px;
+      padding:.85rem 1rem;
+      border:1.5px solid var(--hairline-dark);
+      border-radius:10px;
+      background:rgba(255,255,255,0.03);
+      cursor:pointer;
+      transition:border-color .15s ease, background-color .15s ease;
+    }
+    .footswitch--blue{ --sw-color: var(--brand-blue); --sw-soft: var(--brand-blue-soft); }
+    .footswitch input{
+      position:absolute;
+      width:1px; height:1px;
+      opacity:0;
+    }
+    .footswitch:hover{ border-color:var(--sw-color); }
+    .footswitch:has(input:focus-visible){ outline:2px solid var(--sw-color); outline-offset:2px; }
+    .footswitch.is-selected{
+      border-color:var(--sw-color);
+      background:var(--sw-soft);
+    }
+    .footswitch__led{
+      width:11px; height:11px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.14);
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,0.25);
+      flex:none;
+      transition:background-color .15s ease, box-shadow .15s ease;
+    }
+    .footswitch.is-selected .footswitch__led{
+      background:var(--sw-color);
+      box-shadow:0 0 0 3px var(--sw-soft), 0 0 10px 1px var(--sw-color);
+    }
+    .footswitch__title{
+      display:block;
+      font-weight:600;
+      font-size:.98rem;
+    }
+    .footswitch__sub{
+      display:block;
+      font-size:.78rem;
+      color:var(--stage-ink-dim);
+      margin-top:.1rem;
+    }
+
+    /* ---------- Level meter ---------- */
+    .meter-bar{
+      max-width:640px;
+      margin:0 auto;
+      padding:.9rem 1.5rem;
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+    }
+    .meter-track{
+      flex:1;
+      height:6px;
+      border-radius:99px;
+      background:var(--hairline);
+      overflow:hidden;
+    }
+    .meter-fill{
+      height:100%;
+      width:0%;
+      background:var(--accent);
+      border-radius:inherit;
+      transition:width .25s ease, background-color .2s ease;
+    }
+    .meter-label{
+      font-family:var(--font-mono);
+      font-size:.72rem;
+      color:var(--paper-ink-dim);
+      white-space:nowrap;
+      font-variant-numeric:tabular-nums;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .stage__inner{ animation:none; }
+      .meter-fill, .footswitch, .footswitch__led{ transition:none; }
+    }
+
+    /* ---------- Paper / form ---------- */
+    .paper{
+      max-width:640px;
+      margin:0 auto;
+      padding:.4rem 1.5rem 4rem;
+    }
+
+    .channel{
+      border-top:1px solid var(--hairline);
+      padding:1.9rem 0;
+    }
+    .channel:first-of-type{ border-top:none; padding-top:.6rem; }
+
+    .channel__head{
+      display:flex;
+      align-items:center;
+      gap:.65rem;
+      margin-bottom:1.1rem;
+    }
+    .channel__tag{
+      font-family:var(--font-mono);
+      font-size:.78rem;
+      font-weight:600;
+      color:var(--accent);
+      background:var(--accent-soft);
+      padding:.15rem .5rem;
+      border-radius:5px;
+      transition:color .2s ease, background-color .2s ease;
+    }
+    .channel__head h2{
+      font-family:var(--font-display);
+      font-weight:600;
+      font-size:1.18rem;
+      flex:1;
+    }
+    .channel__head .channel__sub{
+      display:block;
+      font-family:var(--font-body);
+      font-weight:400;
+      font-size:.82rem;
+      color:var(--paper-ink-dim);
+      margin-top:.15rem;
+    }
+    .channel__led{
+      width:9px; height:9px;
+      border-radius:50%;
+      background:var(--hairline);
+      flex:none;
+      transition:background-color .2s ease, box-shadow .2s ease;
+    }
+    .channel--complete .channel__led{
+      background:var(--accent);
+      box-shadow:0 0 0 3px var(--accent-soft);
+    }
+
+    .field-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem 1rem;
+    }
+    .field-grid[hidden]{ display:none; }
+    .field{ display:flex; flex-direction:column; gap:.35rem; }
+    .field--full{ grid-column:1 / -1; }
+
+    label{
+      font-size:.84rem;
+      font-weight:500;
+      color:var(--paper-ink);
+    }
+    label .req{ color:var(--accent); }
+
     input[type="text"],
     input[type="email"],
     input[type="tel"],
-    /* input[type="date"], */
+    input[type="date"],
     select,
-    textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+    textarea{
+      font:inherit;
+      font-size:1rem; /* prevents iOS auto-zoom on focus */
+      padding:.65rem .7rem;
+      border-radius:7px;
+      border:1.5px solid var(--hairline);
+      background:var(--paper-2);
+      color:var(--paper-ink);
+      width:100%;
+      transition:border-color .15s ease, background-color .15s ease;
     }
-    .hidden {
-      display: none;
+    textarea{ resize:vertical; min-height:5.5rem; }
+    input:focus-visible, select:focus-visible, textarea:focus-visible{
+      outline:none;
+      border-color:var(--accent);
+      background:var(--paper);
+      box-shadow:0 0 0 3px var(--accent-soft);
     }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #0078D4;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+
+    .check-row{
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+      grid-column:1 / -1;
     }
-    button:hover {
-      background-color: #005a9e;
+    .check-row > .field-label{
+      font-size:.84rem;
+      font-weight:500;
     }
+    .check-item{
+      display:flex;
+      align-items:center;
+      gap:.55rem;
+      font-size:.92rem;
+      font-weight:400;
+    }
+    .check-item input{ width:17px; height:17px; accent-color:var(--accent); flex:none; }
+
+    .honeypot{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
+    .go-live{
+      width:100%;
+      margin-top:.6rem;
+      padding:1rem 1.4rem;
+      border:none;
+      border-radius:9px;
+      background:var(--paper-ink);
+      color:var(--paper);
+      font:inherit;
+      font-weight:600;
+      font-size:1.02rem;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:.5rem;
+      transition:background-color .15s ease, transform .1s ease;
+    }
+    .go-live:hover{ background:var(--accent); }
+    .go-live:active{ transform:scale(0.99); }
+    .go-live:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; }
+
+    @media (max-width:560px){
+      .field-grid{ grid-template-columns:1fr; }
+      fieldset.switcher{ grid-template-columns:1fr; }
+      .stage{ padding:2.4rem 1.25rem 2rem; }
+      .paper{ padding:.4rem 1.25rem 3rem; }
+    }
+
+    /* ---------- Confirmation screen ---------- */
+    .confirm{
+      max-width:560px;
+      margin:0 auto;
+      padding:5rem 1.5rem;
+      text-align:center;
+    }
+    .confirm__led{
+      width:14px; height:14px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 6px var(--accent-soft);
+      margin:0 auto 1.4rem;
+    }
+    .confirm h2{
+      font-family:var(--font-display);
+      font-size:1.6rem;
+      font-weight:700;
+    }
+    .confirm p{ color:var(--paper-ink-dim); margin-top:.8rem; }
   </style>
 </head>
 <body>
-  <h1>Formulario de aplicación para voluntarios</h1>
-  <h2>Grupo de Alabanza y Tecnología de West Park Church en Español</h2>
-  <p>Si estas interesado en formar parte del equipo de Alabanza y Tecnología de West Park Church en Español, llena el siguiente formulario. Llenar el formulario no es un compromiso de servir, sino una manera de dejarnos saber que estas interesado.</p>
-  <form id="ministerio-form" action="https://script.google.com/macros/s/AKfycbzWEmsx5pBXJqjO3ll8OvfJHu1MggNwD30iDW9iiNb9BfftcArhgrbDJL2HxKOlbfMd/exec" method="POST">
 
-    <!-- ✅ Selección de ministerio -->
-    <label for="ministerio">¿A qué ministerio deseas aplicar? *</label>
-    <select id="ministerio" name="ministerio" required>
-      <option value="">-- Selecciona --</option>
-      <option value="alabanza">Equipo de Alabanza</option>
-      <option value="tecnologia">Equipo de Tecnología</option>
-    </select>
+<form id="ministerio-form" action="https://script.google.com/macros/s/AKfycbzWEmsx5pBXJqjO3ll8OvfJHu1MggNwD30iDW9iiNb9BfftcArhgrbDJL2HxKOlbfMd/exec" method="POST">
+<div class="stage">
+  <div class="stage__inner">
+    <p class="eyebrow">West Park Church · en español</p>
+    <h1 class="stage__title">Súmate al equipo que sirve cada domingo</h1>
+    <p class="stage__copy">Si estás interesado en formar parte del equipo de Alabanza y Tecnología de West Park Church en Español, llena el siguiente formulario. Llenar el formulario no es un compromiso de servir, sino una manera de dejarnos saber que estás interesado.</p>
 
-    <!-- ✅ Campos básicos (comunes) -->
-    <label for="nombre">Nombre *</label>
-    <input type="text" id="nombre" name="nombre" required>
+    <fieldset class="switcher">
+      <legend class="switcher__legend">¿A qué ministerio deseas aplicar? *</legend>
+      <label class="footswitch" data-value="alabanza">
+        <input type="radio" name="ministerio" value="alabanza" required>
+        <span class="footswitch__led"></span>
+        <span>
+          <span class="footswitch__title">Alabanza</span>
+          <span class="footswitch__sub">Música y voces</span>
+        </span>
+      </label>
+      <label class="footswitch footswitch--blue" data-value="tecnologia">
+        <input type="radio" name="ministerio" value="tecnologia" required>
+        <span class="footswitch__led"></span>
+        <span>
+          <span class="footswitch__title">Tecnología</span>
+          <span class="footswitch__sub">Cámaras, audio y media</span>
+        </span>
+      </label>
+    </fieldset>
+  </div>
+</div>
 
-    <label for="apellido">Apellido *</label>
-    <input type="text" id="apellido" name="apellido" required>
+<div class="meter-bar">
+  <div class="meter-track"><div class="meter-fill" id="meterFill"></div></div>
+  <span class="meter-label" id="meterLabel">0 de 12 campos</span>
+</div>
 
-    <label for="email">Correo electrónico *</label>
-    <input type="email" id="email" name="email" required>
+<div class="paper">
 
-    <label for="telefono">Número de teléfono *</label>
-    <input type="tel" id="telefono" name="telefono" required>
+  <!-- Anti-spam: form_key must match the check added in the Apps Script doPost; website must stay empty (bots fill hidden fields, humans never see it) -->
+  <input type="hidden" name="form_key" value="ty8mArtM6TxDVK3k3jnyJ9GUrzIwwE90">
+  <div class="honeypot" aria-hidden="true">
+    <label for="website">Dejar en blanco</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+  </div>
 
-    <label for="fecha_nacimiento">Fecha de nacimiento *</label>
-    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
-
-
-    <!-- ✅ SECCIÓN ALABANZA -->
-    <div id="alabanza-section" class="hidden">
-      <h3>Aplicación para el Equipo de Alabanza</h3>
-
-      <label for="instrumento">Instrumento con el que deseas audicionar *</label>
-      <select id="instrumento" name="instrumento">
-        <option value="">-- Selecciona --</option>
-        <option value="Eléctrica">Guitarra eléctrica</option>
-        <option value="Acúsitca">Guitarra acústica</option>
-        <option value="Batería">Batería</option>
-        <option value="Bajo">Bajo</option>
-        <option value="Piano/Teclado">Piano/Teclado</option>
-        <option value="Cantante">Cantante</option>
-        <option value="Otro">Otro</option>
-      </select>
-
-      <label for="tiempo_instrumento">¿Cuánto tiempo has tocado este instrumento? *</label>
-      <select id="tiempo_instrumento" name="tiempo_instrumento">
-        <option value="">-- Selecciona --</option>
-        <option value="0-1y">0-1 año</option>
-        <option value="1-3y">1-3 años</option>
-        <option value="3+y">3+ años</option>
-      </select>
-
-      <label for="identidad">Me considero un(a): *</label>
-      <select id="identidad" name="identidad">
-        <option value="">-- Selecciona --</option>
-        <option value="Principiante">Principiante</option>
-        <option value="Intermedio">Intermedio</option>
-        <option value="Experto">Experto</option>
-      </select>
-
-      <label>Puedo... (Marca todo lo que aplique)</label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="reads_chord_charts" value="yes"> Leer cifrados (chord charts)</label>
-        <label><input type="checkbox" name="reads_music_sheet" value="yes"> Leer partituras</label>
-        <label><input type="checkbox" name="improvises" value="yes"> Improvisar en mi instrumento</label>
+  <section class="channel" data-channel="1">
+    <div class="channel__head">
+      <span class="channel__tag">CH.01</span>
+      <h2>Quién eres</h2>
+      <span class="channel__led"></span>
+    </div>
+    <div class="field-grid">
+      <div class="field">
+        <label for="nombre">Nombre <span class="req">*</span></label>
+        <input type="text" id="nombre" name="nombre" required>
       </div>
+      <div class="field">
+        <label for="apellido">Apellido <span class="req">*</span></label>
+        <input type="text" id="apellido" name="apellido" required>
+      </div>
+      <div class="field">
+        <label for="email">Correo electrónico <span class="req">*</span></label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="field">
+        <label for="telefono">Número de teléfono <span class="req">*</span></label>
+        <input type="tel" id="telefono" name="telefono" required>
+      </div>
+      <div class="field field--full">
+        <label for="fecha_nacimiento">Fecha de nacimiento</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+      </div>
+    </div>
+  </section>
 
-      <label for="aprendizaje">Aprendo música por: *</label>
-      <select id="aprendizaje" name="aprendizaje">
-        <option value="">-- Selecciona --</option>
-        <option value="Leyendo">Leyendo (Partituras, Cifrados o Chord Charts)</option>
-        <option value="Escuchando">Escuchando (de Oído)</option>
-        <option value="Ambas">Ambas</option>
-      </select>
-
+  <section class="channel" data-channel="2" id="dynamicChannel">
+    <div class="channel__head">
+      <span class="channel__tag">CH.02</span>
+      <h2 id="dynamicTitle">Tu instrumento o tu rol técnico<span class="channel__sub" id="dynamicSub">Elige un ministerio arriba para continuar</span></h2>
+      <span class="channel__led"></span>
     </div>
 
-    <!-- ✅ SECCIÓN TECNOLOGÍA -->
-    <div id="tecnologia-section" class="hidden">
-      <h3>Aplicación para el Equipo de Tecnología</h3>
-
-      <label for="puesto_tecnologia">¿Qué puesto te interesa? *</label>
-      <select id="puesto_tecnologia" name="puesto_tecnologia">
-        <option value="">-- Selecciona --</option>
-        <option value="Cámaras">Cámaras</option>
-        <option value="Director de Cámaras">Director de Cámaras</option>
-        <option value="Operador de Media">Operador de Media</option>
-        <option value="Producción de Media">Producción de Media</option>
-        <option value="Operador de Audio">Operador de Audio</option>
-        <option value="Otro">Otro</option>
-      </select>
-
-      <label for="nivel_experiencia_tecnologia">Nivel de experiencia *</label>
-      <select id="nivel_experiencia_tecnologia" name="nivel_experiencia_tecnologia">
-        <option value="">-- Selecciona --</option>
-        <option value="Principiante">Principiante</option>
-        <option value="Intermedio">Intermedio</option>
-        <option value="Avanzado">Avanzado</option>
-      </select>
-
-      <label for="descripcion_experiencia_tecnologia">Describe brevemente tu experiencia *</label>
-      <textarea id="descripcion_experiencia_tecnologia" name="descripcion_experiencia_tecnologia" rows="3"></textarea>
-    </div>
-
-    <!-- ✅ Motivos ESPIRITUALES (común para ambos) -->
-    <div class="section">
-      <h3>Información Adicional</h3>
-        <label for="tiempo_asistencia">¿Cuánto tiempo has asistido a West Park? *</label>
-        <select id="tiempo_asistencia" name="tiempo_asistencia">
-        <option value="">-- Selecciona --</option>
-        <option value="0-3m">0-3 meses</option>
-        <option value="3-6m">3-6 meses</option>
-        <option value="6-12m">6-12 meses</option>
-        <option value="1-5y">1-5 años</option>
-        <option value="5+y">5+ años</option>
+    <div class="field-grid fields--alabanza" hidden>
+      <div class="field">
+        <label for="instrumento">Instrumento con el que deseas audicionar <span class="req">*</span></label>
+        <select id="instrumento" name="instrumento" data-required>
+          <option value="">-- Selecciona --</option>
+          <option value="Eléctrica">Guitarra eléctrica</option>
+          <option value="Acúsitca">Guitarra acústica</option>
+          <option value="Batería">Batería</option>
+          <option value="Bajo">Bajo</option>
+          <option value="Piano/Teclado">Piano/Teclado</option>
+          <option value="Cantante">Cantante</option>
+          <option value="Otro">Otro</option>
         </select>
-
-        <label for="motivo">¿Por qué quieres unirte al ministerio de alabanza en West Park? *</label>
-        <textarea id="motivo" name="motivo" rows="4"></textarea>
-
-        <label for="testimonio">Cuéntanos sobre tu caminar con Jesús *</label>
-        <textarea id="testimonio" name="testimonio" rows="4"></textarea>
-
-        <label for="experiencia">¿Has participado en un ministerio de alabanza en otra iglesia? ¿Dónde y por cuánto tiempo? *</label>
-        <textarea id="experiencia" name="experiencia" rows="4"></textarea>
+      </div>
+      <div class="field">
+        <label for="tiempo_instrumento">¿Cuánto tiempo has tocado este instrumento? <span class="req">*</span></label>
+        <select id="tiempo_instrumento" name="tiempo_instrumento" data-required>
+          <option value="">-- Selecciona --</option>
+          <option value="0-1y">0-1 año</option>
+          <option value="1-3y">1-3 años</option>
+          <option value="3+y">3+ años</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="identidad">Me considero un(a) <span class="req">*</span></label>
+        <select id="identidad" name="identidad" data-required>
+          <option value="">-- Selecciona --</option>
+          <option value="Principiante">Principiante</option>
+          <option value="Intermedio">Intermedio</option>
+          <option value="Experto">Experto</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="aprendizaje">Aprendo música por <span class="req">*</span></label>
+        <select id="aprendizaje" name="aprendizaje" data-required>
+          <option value="">-- Selecciona --</option>
+          <option value="Leyendo">Leyendo (partituras, cifrados o chord charts)</option>
+          <option value="Escuchando">Escuchando (de oído)</option>
+          <option value="Ambas">Ambas</option>
+        </select>
+      </div>
+      <div class="check-row">
+        <span class="field-label">Puedo... (marca todo lo que aplique)</span>
+        <label class="check-item"><input type="checkbox" name="reads_chord_charts" value="yes"> Leer cifrados (chord charts)</label>
+        <label class="check-item"><input type="checkbox" name="reads_music_sheet" value="yes"> Leer partituras</label>
+        <label class="check-item"><input type="checkbox" name="improvises" value="yes"> Improvisar en mi instrumento</label>
+      </div>
     </div>
 
-    <!-- ✅ REFERENCIAS ESPIRITUALES (común para ambos) -->
-    <div class="section">
-      <h3>Primera Referencia Espiritual</h3>
-      <label for="ref1_nombre">Nombre *</label>
-      <input type="text" id="ref1_nombre" name="ref1_nombre" required>
-
-      <label for="ref1_telefono">Teléfono *</label>
-      <input type="tel" id="ref1_telefono" name="ref1_telefono" required>
-
-      <label for="ref1_email">Correo electrónico *</label>
-      <input type="email" id="ref1_email" name="ref1_email" required>
+    <div class="field-grid fields--tecnologia" hidden>
+      <div class="field">
+        <label for="puesto_tecnologia">¿Qué puesto te interesa? <span class="req">*</span></label>
+        <select id="puesto_tecnologia" name="puesto_tecnologia" data-required>
+          <option value="">-- Selecciona --</option>
+          <option value="Cámaras">Cámaras</option>
+          <option value="Director de Cámaras">Director de Cámaras</option>
+          <option value="Operador de Media">Operador de Media</option>
+          <option value="Producción de Media">Producción de Media</option>
+          <option value="Operador de Audio">Operador de Audio</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="nivel_experiencia_tecnologia">Nivel de experiencia <span class="req">*</span></label>
+        <select id="nivel_experiencia_tecnologia" name="nivel_experiencia_tecnologia" data-required>
+          <option value="">-- Selecciona --</option>
+          <option value="Principiante">Principiante</option>
+          <option value="Intermedio">Intermedio</option>
+          <option value="Avanzado">Avanzado</option>
+        </select>
+      </div>
+      <div class="field field--full">
+        <label for="descripcion_experiencia_tecnologia">Describe brevemente tu experiencia <span class="req">*</span></label>
+        <textarea id="descripcion_experiencia_tecnologia" name="descripcion_experiencia_tecnologia" rows="3" data-required></textarea>
+      </div>
     </div>
+  </section>
 
-    <div class="section">
-      <h3>Segunda Referencia Espiritual</h3>
-      <label for="ref2_nombre">Nombre *</label>
-      <input type="text" id="ref2_nombre" name="ref2_nombre" required>
-
-      <label for="ref2_telefono">Teléfono *</label>
-      <input type="tel" id="ref2_telefono" name="ref2_telefono" required>
-
-      <label for="ref2_email">Correo electrónico *</label>
-      <input type="email" id="ref2_email" name="ref2_email" required>
+  <section class="channel" data-channel="3">
+    <div class="channel__head">
+      <span class="channel__tag">CH.03</span>
+      <h2>Tu caminar con Jesús</h2>
+      <span class="channel__led"></span>
     </div>
+    <div class="field-grid">
+      <div class="field field--full">
+        <label for="tiempo_asistencia">¿Cuánto tiempo has asistido a West Park? <span class="req">*</span></label>
+        <select id="tiempo_asistencia" name="tiempo_asistencia" required>
+          <option value="">-- Selecciona --</option>
+          <option value="0-3m">0-3 meses</option>
+          <option value="3-6m">3-6 meses</option>
+          <option value="6-12m">6-12 meses</option>
+          <option value="1-5y">1-5 años</option>
+          <option value="5+y">5+ años</option>
+        </select>
+      </div>
+      <div class="field field--full">
+        <label for="motivo">¿Por qué quieres unirte al ministerio de alabanza en West Park? <span class="req">*</span></label>
+        <textarea id="motivo" name="motivo" rows="3" required></textarea>
+      </div>
+      <div class="field field--full">
+        <label for="testimonio">Cuéntanos sobre tu caminar con Jesús <span class="req">*</span></label>
+        <textarea id="testimonio" name="testimonio" rows="3" required></textarea>
+      </div>
+      <div class="field field--full">
+        <label for="experiencia">¿Has participado en un ministerio de alabanza en otra iglesia? ¿Dónde y por cuánto tiempo? <span class="req">*</span></label>
+        <textarea id="experiencia" name="experiencia" rows="3" required></textarea>
+      </div>
+    </div>
+  </section>
 
-    <button type="submit">Enviar Aplicación</button>
-  </form>
+  <section class="channel" data-channel="4">
+    <div class="channel__head">
+      <span class="channel__tag">CH.04</span>
+      <h2>Primera referencia espiritual</h2>
+      <span class="channel__led"></span>
+    </div>
+    <div class="field-grid">
+      <div class="field">
+        <label for="ref1_nombre">Nombre <span class="req">*</span></label>
+        <input type="text" id="ref1_nombre" name="ref1_nombre" required>
+      </div>
+      <div class="field">
+        <label for="ref1_telefono">Teléfono <span class="req">*</span></label>
+        <input type="tel" id="ref1_telefono" name="ref1_telefono" required>
+      </div>
+      <div class="field field--full">
+        <label for="ref1_email">Correo electrónico <span class="req">*</span></label>
+        <input type="email" id="ref1_email" name="ref1_email" required>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    const ministerioSelect = document.getElementById("ministerio");
-    const alabanzaSection = document.getElementById("alabanza-section");
-    const tecnologiaSection = document.getElementById("tecnologia-section");
+  <section class="channel" data-channel="5">
+    <div class="channel__head">
+      <span class="channel__tag">CH.05</span>
+      <h2>Segunda referencia espiritual</h2>
+      <span class="channel__led"></span>
+    </div>
+    <div class="field-grid">
+      <div class="field">
+        <label for="ref2_nombre">Nombre <span class="req">*</span></label>
+        <input type="text" id="ref2_nombre" name="ref2_nombre" required>
+      </div>
+      <div class="field">
+        <label for="ref2_telefono">Teléfono <span class="req">*</span></label>
+        <input type="tel" id="ref2_telefono" name="ref2_telefono" required>
+      </div>
+      <div class="field field--full">
+        <label for="ref2_email">Correo electrónico <span class="req">*</span></label>
+        <input type="email" id="ref2_email" name="ref2_email" required>
+      </div>
+    </div>
+  </section>
 
-    ministerioSelect.addEventListener("change", () => {
-      const value = ministerioSelect.value;
-      alabanzaSection.classList.toggle("hidden", value !== "alabanza");
-      tecnologiaSection.classList.toggle("hidden", value !== "tecnologia");
+  <button type="submit" class="go-live">Enviar aplicación →</button>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('ministerio-form');
+  const switches = Array.from(form.querySelectorAll('.footswitch'));
+  const radios = Array.from(form.querySelectorAll('input[name="ministerio"]'));
+  const alabanzaFields = form.querySelector('.fields--alabanza');
+  const tecnologiaFields = form.querySelector('.fields--tecnologia');
+  const dynamicSub = document.getElementById('dynamicSub');
+  const meterFill = document.getElementById('meterFill');
+  const meterLabel = document.getElementById('meterLabel');
+
+  function setMinistry(value){
+    document.documentElement.style.setProperty('--accent', value === 'tecnologia' ? 'var(--brand-blue)' : 'var(--brand-red)');
+    document.documentElement.style.setProperty('--accent-soft', value === 'tecnologia' ? 'var(--brand-blue-soft)' : 'var(--brand-red-soft)');
+    switches.forEach(sw => sw.classList.toggle('is-selected', sw.dataset.value === value));
+
+    const isAlabanza = value === 'alabanza';
+    alabanzaFields.hidden = !isAlabanza;
+    tecnologiaFields.hidden = isAlabanza;
+    alabanzaFields.querySelectorAll('[data-required]').forEach(el => el.required = isAlabanza);
+    tecnologiaFields.querySelectorAll('[data-required]').forEach(el => el.required = !isAlabanza);
+
+    dynamicSub.textContent = isAlabanza
+      ? 'Alabanza — cuéntanos de tu instrumento'
+      : 'Tecnología — cuéntanos de tu experiencia';
+
+    updateProgress();
+  }
+
+  radios.forEach(r => r.addEventListener('change', () => setMinistry(r.value)));
+
+  // Belt-and-suspenders: some mobile in-app browsers (e.g. Instagram/Facebook's
+  // embedded WebView) don't reliably forward a <label> click to a visually-hidden
+  // radio input. Handling the click on the switch itself guarantees it works everywhere.
+  switches.forEach(sw => {
+    sw.addEventListener('click', () => {
+      const radio = sw.querySelector('input[type="radio"]');
+      if (!radio.checked) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
     });
+  });
 
-    // ✅ Manejador del envío (igual que antes)
-    document.querySelector("form").addEventListener("submit", function(event) {
-      event.preventDefault();
+  function updateProgress(){
+    const seenNames = new Set();
+    const required = Array.from(form.querySelectorAll('[required]')).filter(el => {
+      if (el.type === 'radio'){
+        if (seenNames.has(el.name)) return false;
+        seenNames.add(el.name);
+      }
+      return true;
+    });
+    const filled = required.filter(el => {
+      if (el.type === 'radio') return !!form.querySelector(`input[name="${el.name}"]:checked`);
+      if (el.type === 'checkbox') return el.checked;
+      return el.value.trim() !== '';
+    });
+    const pct = required.length ? Math.round((filled.length / required.length) * 100) : 0;
+    meterFill.style.width = pct + '%';
+    meterLabel.textContent = `${filled.length} de ${required.length} campos`;
 
-      fetch(this.action, {
-        method: "POST",
-        mode: "no-cors",
-        body: new FormData(this)
-      }).then(() => {
-        document.body.innerHTML = `
+    form.querySelectorAll('.channel').forEach(ch => {
+      const chReq = Array.from(ch.querySelectorAll('[required]'));
+      const chFilled = chReq.length > 0 && chReq.every(el => el.type === 'checkbox' ? el.checked : el.value.trim() !== '');
+      ch.classList.toggle('channel--complete', chFilled);
+    });
+  }
+
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+  updateProgress();
+
+  function showConfirmation(){
+    const main = document.createElement('div');
+    main.innerHTML = `
+      <div class="stage" style="padding-bottom:0">
+        <div class="confirm">
+          <div class="confirm__led"></div>
           <h2>¡Gracias por enviar tu aplicación!</h2>
-          <p>Nos pondremos en contacto contigo pronto.<br>
-          También puedes escribirnos a 
-          <a href="mailto:spanishworship@westparkchurch.ca">
-            spanishworship@westparkchurch.ca
-          </a></p>
-        `;
-      }).catch(error => {
-        alert("Hubo un error al enviar el formulario. Intenta nuevamente.");
-        console.error(error);
-      });
+          <p style="color:var(--stage-ink-dim)">Nos pondremos en contacto contigo pronto.<br>
+          Revisa tu correo electrónico — te enviamos una confirmación con más información.</p>
+        </div>
+      </div>`;
+    document.body.replaceChildren(main.firstElementChild);
+  }
+
+  form.addEventListener('submit', function(event){
+    event.preventDefault();
+
+    if (document.getElementById('website').value) {
+      // Honeypot filled in => bot. Pretend it worked without contacting the backend.
+      showConfirmation();
+      return;
+    }
+
+    fetch(this.action, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new FormData(this)
+    }).then(() => {
+      showConfirmation();
+    }).catch(error => {
+      alert('Hubo un error al enviar el formulario. Intenta nuevamente.');
+      console.error(error);
     });
-  </script>
+  });
+</script>
 </body>
 </html>
