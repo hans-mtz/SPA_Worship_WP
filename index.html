@@ -416,12 +416,12 @@
       </div>
       <div class="field">
         <label for="telefono">Número de teléfono <span class="req">*</span></label>
-        <input type="tel" id="telefono" name="telefono" required>
+        <input type="tel" id="telefono" name="telefono" data-required>
       </div>
       <div class="field field--full">
         <h3> Debes tener 16 años o más para audicionar</h3>
-        <label for="fecha_nacimiento">Fecha de nacimiento</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+        <label for="fecha_nacimiento">Fecha de nacimiento <span class="req">*</span></label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
       </div>
     </div>
   </section>
@@ -569,21 +569,21 @@
   <section class="channel" data-channel="5">
     <div class="channel__head">
       <span class="channel__tag">CH.05</span>
-      <h2>Segunda referencia espiritual</h2>
+      <h2>Segunda referencia espiritual<span class="channel__sub">Opcional</span></h2>
       <span class="channel__led"></span>
     </div>
     <div class="field-grid">
       <div class="field">
-        <label for="ref2_nombre">Nombre <span class="req">*</span></label>
-        <input type="text" id="ref2_nombre" name="ref2_nombre" required>
+        <label for="ref2_nombre">Nombre</label>
+        <input type="text" id="ref2_nombre" name="ref2_nombre">
       </div>
       <div class="field">
-        <label for="ref2_telefono">Teléfono <span class="req">*</span></label>
-        <input type="tel" id="ref2_telefono" name="ref2_telefono" required>
+        <label for="ref2_telefono">Teléfono</label>
+        <input type="tel" id="ref2_telefono" name="ref2_telefono">
       </div>
       <div class="field field--full">
-        <label for="ref2_email">Correo electrónico <span class="req">*</span></label>
-        <input type="email" id="ref2_email" name="ref2_email" required>
+        <label for="ref2_email">Correo electrónico</label>
+        <input type="email" id="ref2_email" name="ref2_email">
       </div>
     </div>
   </section>
